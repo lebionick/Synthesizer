@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesizer", "Synthesizer\Synthesizer.csproj", "{529D1E1E-84C9-42A1-87AD-18AACE2EF36B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{529D1E1E-84C9-42A1-87AD-18AACE2EF36B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{529D1E1E-84C9-42A1-87AD-18AACE2EF36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{529D1E1E-84C9-42A1-87AD-18AACE2EF36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{529D1E1E-84C9-42A1-87AD-18AACE2EF36B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
