@@ -1,11 +1,43 @@
-﻿<Window x:Class="Synthesizer.MainWindow"
+﻿<Controls:MetroWindow x:Class="Synthesizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Synthesizer"
         mc:Ignorable="d"
         Title="MainWindow" Height="408.45" Width="523">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="buttonGradient">
+            <GradientStop Color="Blue" Offset="0.0"></GradientStop>
+            <GradientStop Color="Red" Offset="1.1"></GradientStop>
+        </LinearGradientBrush>
+        <Style TargetType="Button" x:Key="buttonStyle">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard 
+                            TargetProperty="Height">
+                            <DoubleAnimation From="40"
+                                             To="500"
+                                             Duration="0:0:30">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Height"
+                            Value="500">
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Background"
+                    Value="{StaticResource buttonGradient}">
+
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" VerticalAlignment="Top" Width="284"/>
         <Grid Height="110" Margin="294,10,10,0" VerticalAlignment="Top">
@@ -16,7 +48,7 @@
         <Grid Margin="10,125,10,21">
             <StackPanel Orientation="Horizontal">
                 <Grid Width="180">
-                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Width="60"/>
+                    <Button x:Name="button" Style="{StaticResource buttonStyle}"></Button>
                     <Button x:Name="button_Copy" Content="Button" HorizontalAlignment="Left" Width="60" Margin="60,0,0,0"/>
                     <Button x:Name="button_Copy1" Content="Button" Margin="120,0,0,0" HorizontalAlignment="Left" Width="60"/>
                 </Grid>
@@ -24,4 +56,4 @@
         </Grid>
         <Grid Height="21" VerticalAlignment="Bottom"/>
     </Grid>
-</Window>
+</Controls:MetroWindow>
