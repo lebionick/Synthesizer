@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -13,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Synthesizer.CORE;
+using MahApps.Metro.Controls;
 
 namespace Synthesizer
 {
@@ -24,11 +25,23 @@ namespace Synthesizer
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void button6_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button6_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, RoutedEventArgs e)
         {
 
         }
     }
+
 }
