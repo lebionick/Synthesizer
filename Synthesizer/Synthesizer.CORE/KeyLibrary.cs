@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Synthesizer.CORE
 {
@@ -26,7 +28,7 @@ namespace Synthesizer.CORE
         {
             KeyCreator factory;
             IList<PianoKey> ListOfKeys;
-            for (int i = 0; i < DBO.SoundsDataBase.octavas * 12; i++)
+            for(int i=0; i<DBO.SoundsDataBase.ListOfSounds.Count;i++)
             {
                 bool isWhite = true;
                 int number = (i % 12) + 1;
@@ -50,7 +52,7 @@ namespace Synthesizer.CORE
                 }
 
                 ListOfKeys.Add(factory.GetKey(GetToneFromNumber(i)));
-                ListOfKeys[i].AddSound(DBO.DataBaseServices.ConnectingKeys.Connect(i));
+                ListOfKeys[ListOfKeys.Count-1].AddSound(DBO.DataBaseServices.ConnectingKeys.Connect(i));
         
             }
         }

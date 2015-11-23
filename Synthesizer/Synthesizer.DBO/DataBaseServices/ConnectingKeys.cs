@@ -11,7 +11,7 @@ namespace Synthesizer.DBO.DataBaseServices
     {
         public static SoundPlayer Connect(int number)
         {
-            if (SoundsDataBase.ListOfSounds != null)
+            if ((SoundsDataBase.ListOfSounds != null)&&(SoundsDataBase.ListOfSounds.Count>=number))
                 return SoundsDataBase.ListOfSounds[number];
             else return null;
         }

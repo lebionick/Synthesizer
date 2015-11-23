@@ -21,12 +21,13 @@ namespace Synthesizer.DBO
             for (int i = 0; i < octavas * 12; i++)
             {
                 SoundPlayer player = new SoundPlayer();
+                string path= ("C:\\Sounds\\pianotones\\pianotone-"+Convert.ToString(i+1)+".wav");
                 try
                 {
-                    player.SoundLocation = (@"C:\Sounds\pianotones\pianotone-" + i.ToString() + ".wav");
+                    player.SoundLocation = (@path);
                     player.Load();
                 }
-                catch (NullReferenceException)
+                catch (Exception)
                 {
                     continue;
                 }

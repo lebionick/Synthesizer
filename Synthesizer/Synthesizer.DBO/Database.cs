@@ -12,7 +12,7 @@ namespace Synthesizer.DBO
     {
         public static int octavas = 2;
         public static int[] blacks = new int[] { 2, 4, 7, 9, 11 };
-        public static List<SoundPlayer> ListOfSounds;
+        public static IList<SoundPlayer> ListOfSounds;
         List<SoundPlayer> ListOfPianoSounds;
         public SoundsDataBase()
         {
