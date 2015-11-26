@@ -14,10 +14,16 @@ namespace Synthesizer.DBO
         public static int[] blacks = new int[] { 2, 4, 7, 9, 11 };
         public static IList<SoundPlayer> ListOfSounds;
         List<SoundPlayer> ListOfPianoSounds;
-        public SoundsDataBase()
+        void LoadInThread()
         {
             ILoadSound loader = new LoadPiano();
             ListOfPianoSounds = loader.Load(octavas);
+        }
+        public SoundsDataBase()
+        {
+            Thread LoadingThread = new Thread(LoadInThread);
+            LoadingThread.Start();
+            LoadingThread.Join();
         }
         public void SwitchSound(string mode)
         {

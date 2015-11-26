@@ -52,8 +52,7 @@ namespace Synthesizer.CORE
                 }
 
                 ListOfKeys.Add(factory.GetKey(GetToneFromNumber(i)));
-                ListOfKeys[ListOfKeys.Count-1].AddSound(DBO.DataBaseServices.ConnectingKeys.Connect(i));
-        
+                ListOfKeys[ListOfKeys.Count - 1].AddSound(DBO.DataBaseServices.ConnectingKeys.Connect(i));        
             }
         }
         int GetToneFromNumber(int number)

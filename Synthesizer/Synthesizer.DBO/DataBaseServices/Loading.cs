@@ -25,11 +25,11 @@ namespace Synthesizer.DBO
                 try
                 {
                     player.SoundLocation = (@path);
-                    player.Load();
+                    player.LoadAsync();
                 }
                 catch (Exception)
                 {
-                    continue;
+                    player = null;
                 }
                 _soundList.Add(player);
             }
