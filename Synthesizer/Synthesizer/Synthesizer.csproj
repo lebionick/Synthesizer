@@ -95,6 +95,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PianoKeyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +159,15 @@
       <Project>{0ec35074-2029-438b-8139-bb5484b422bf}</Project>
       <Name>Synthesizer.DBO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\pause.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\record.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\stop.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

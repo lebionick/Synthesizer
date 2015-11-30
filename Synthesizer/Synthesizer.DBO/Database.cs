@@ -10,8 +10,8 @@ namespace Synthesizer.DBO
 {
     public class SoundsDataBase
     {
-        public static int octavas = 2;
-        public static int[] blacks = new int[] { 2, 4, 7, 9, 11 };
+        public static int octavas = 2; //GOVNOKOD
+        public static int[] blacks = new int[] { 2, 4, 7, 9, 11 }; //GOVNOKOD
         public static IList<SoundPlayer> ListOfSounds;
         List<SoundPlayer> ListOfPianoSounds;
         void LoadInThread()
@@ -25,7 +25,7 @@ namespace Synthesizer.DBO
             LoadingThread.Start();
             LoadingThread.Join();
         }
-        public void SwitchSound(string mode)
+        public void SwitchSound(string mode) //GOVNOKOD
         {
             switch (mode)
             {

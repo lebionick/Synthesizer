@@ -10,7 +10,7 @@ namespace Synthesizer.DBO
 {
     interface ILoadSound
     {
-        List<SoundPlayer> Load(int octavas);
+        List<SoundPlayer> Load(int octavas); //GOVNOKOD
     }
     class LoadPiano : ILoadSound
     {

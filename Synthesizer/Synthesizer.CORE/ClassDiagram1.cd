@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Synthesizer.CORE.KeyCreator">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.CORE.WhiteKeyCreator">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.CORE.BlackKeyCreator">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.CORE.KeyLibrary">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAABAA=</HashCode>
+      <FileName>KeyLibrary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.PianoKey" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAhAAAAAAAIAA=</HashCode>
+      <FileName>Keys.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.BlackKey">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Keys.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Synthesizer.WhiteKey">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Keys.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

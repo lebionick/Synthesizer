@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Media;
-
+using System.Threading;
 
 namespace Synthesizer
 { 
