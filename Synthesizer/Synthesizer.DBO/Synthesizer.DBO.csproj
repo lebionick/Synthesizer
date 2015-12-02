@@ -45,6 +45,12 @@
     <Compile Include="DataBaseServices\Loading.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synthesizer.CORE\Synthesizer.CORE.csproj">
+      <Project>{759ddf09-f47f-4460-a10f-3f02730777cb}</Project>
+      <Name>Synthesizer.CORE</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

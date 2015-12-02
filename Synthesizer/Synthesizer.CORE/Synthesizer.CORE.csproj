@@ -41,15 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KeyFactory.cs" />
-    <Compile Include="KeyLibrary.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Synthesizer.DBO\Synthesizer.DBO.csproj">
-      <Project>{0ec35074-2029-438b-8139-bb5484b422bf}</Project>
-      <Name>Synthesizer.DBO</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

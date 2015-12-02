@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Media;
 using System.Threading;
+using System.IO;
 
 namespace Synthesizer.DBO
 {
     interface ILoadSound
     {
-        List<SoundPlayer> Load(int octavas); //GOVNOKOD
+        List<SoundPlayer> Load(int octavas); 
     }
     class LoadPiano : ILoadSound
     {
@@ -21,7 +22,7 @@ namespace Synthesizer.DBO
             for (int i = 0; i < octavas * 12; i++)
             {
                 SoundPlayer player = new SoundPlayer();
-                string path= ("C:\\Sounds\\pianotones\\pianotone-"+Convert.ToString(i+1)+".wav");
+                string path = ("C:\\SoundBanks\\pianotones\\pianotone-" + Convert.ToString(i + 1) + ".wav");
                 try
                 {
                     player.SoundLocation = (@path);

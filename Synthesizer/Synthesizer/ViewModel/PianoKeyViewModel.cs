@@ -16,7 +16,6 @@ namespace Synthesizer.ViewModel
         {
             _model = model;
         }
-
         private RelayCommand _play;
         public ICommand Play
         {

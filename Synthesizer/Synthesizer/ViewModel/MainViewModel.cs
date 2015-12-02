@@ -13,13 +13,12 @@ namespace Synthesizer.ViewModel
     public class MainViewModel : ViewModelBase
     {
         SoundsDataBase DataBaseOfSounds;
-        KeyLibrary LibraryofKeys;
         public ObservableCollection<PianoKeyViewModel> WhiteKeys
         {
             get
             {
                 List<PianoKeyViewModel> result = new List<PianoKeyViewModel>();
-                foreach (var itemKey in LibraryofKeys.ListOfWhiteKeys)
+                foreach (var itemKey in DataBaseOfSounds.GetListOfWhiteKeys)
                 {
                     result.Add(new PianoKeyViewModel(itemKey));
                 }
@@ -31,7 +30,7 @@ namespace Synthesizer.ViewModel
             get
             {
                 List<PianoKeyViewModel> result = new List<PianoKeyViewModel>();
-                foreach (var itemKey in LibraryofKeys.ListOfBlackKeys)
+                foreach (var itemKey in DataBaseOfSounds.GetListOfBlackKeys)
                 {
                     result.Add(new PianoKeyViewModel(itemKey));
                 }
@@ -51,8 +50,38 @@ namespace Synthesizer.ViewModel
                 _i = value % 5;
             }
         }
-        public double WhiteKeyWidth=40;
-        public double WhiteKeyHeight = 165;
+        public Thickness GetMargin
+        {
+            get
+            {
+                Thickness margin;
+                if ((I == 1) || (I >= 3))
+                    margin = new Thickness(WhiteKeyWidth - BlackKeyWidth, 0, 0, 0);
+                else if ((I == 2) || (I == 0))
+                    margin = new Thickness( 2*WhiteKeyWidth-BlackKeyWidth, 0, 0, 0);
+                else
+                {
+                    margin = new Thickness(WhiteKeyWidth - 0.5*BlackKeyWidth, 0, 0, 0);
+                    I++;
+                }
+                I++;
+                return margin;
+            }
+        }
+        public double WhiteKeyWidth
+        {
+            get
+            {
+                return 40;
+            }
+        }
+        public double WhiteKeyHeight
+        {
+            get
+            {
+                return 165;
+            }
+        }
         public double BlackKeyWidth
         {
             get
@@ -67,23 +96,10 @@ namespace Synthesizer.ViewModel
                 return (WhiteKeyHeight * 0.6);
             }
         }
-        public Thickness GetMargin()
-        {
-            Thickness margin;
-            if ((I == 1) || (I >= 3))
-                margin= new Thickness(0.4 * WhiteKeyWidth,0,0,0);
-            if ((I == 2) || (I == 0))
-                margin= new Thickness(1.4 * WhiteKeyWidth,0,0,0);
-            else
-                margin= new Thickness(0.7 * WhiteKeyWidth,0,0,0);
-            I++;
-            return margin;
-        }
+
         public MainViewModel()
         {
-            DataBaseOfSounds = new SoundsDataBase(); //GOVNOKOD
-            DataBaseOfSounds.SwitchSound("piano");
-            LibraryofKeys = new KeyLibrary();
+            DataBaseOfSounds = new SoundsDataBase();
         }
     }
 }

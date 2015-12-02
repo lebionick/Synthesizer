@@ -11,11 +11,12 @@ namespace Synthesizer
 { 
     public abstract class PianoKey
     {
+
         protected int _tone;
         public SoundPlayer Sound;
-        public PianoKey(int Tone)
+        public PianoKey(int tone)
         {
-            _tone = Tone;
+            _tone = tone;
         }
         public void AddSound(SoundPlayer sound)
         {
@@ -43,6 +44,7 @@ namespace Synthesizer
          
     public class WhiteKey : PianoKey
     {
+
         public WhiteKey(int Tone) : base(Tone)
         {
 

@@ -13,13 +13,21 @@
             <Setter Property="Control.Height" Value="25"></Setter>
             <Setter Property="Control.Width" Value="25"></Setter>
         </Style>
+        <Style x:Key="BlackKeyStyle">
+            <Setter Property="Control.Height" Value="{Binding DataContext.BlackKeyHeight, ElementName=metroWindow}"></Setter>
+            <Setter Property="Control.Width" Value="{Binding DataContext.BlackKeyWidth, ElementName=metroWindow}"></Setter>
+        </Style>
+        <Style x:Key="WhiteKeyStyle">
+            <Setter Property="Control.Height" Value="{Binding DataContext.WhiteKeyHeight, ElementName=metroWindow}"></Setter>
+            <Setter Property="Control.Width" Value="{Binding DataContext.WhiteKeyWidth, ElementName=metroWindow}"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="120" Margin="10,10,0,0" VerticalAlignment="Top" Width="236">
             <Image Source="ImageResources/pause.jpg"></Image>
         </Grid>
         <Grid Height="120" Margin="10,10,10,0" VerticalAlignment="Top" Width="100">
-            <Button x:Name="recordButton"  VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource recordButtonStyle}">
+            <Button x:Name="recordButton" VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource recordButtonStyle}">
 
                 <Button.Template>
                     <ControlTemplate  TargetType="Button">
@@ -55,30 +63,33 @@
             <Button x:Name="PianoMode" Content="Piano&#xD;&#xA;Mode" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" Width="76" Height="64" Background="White"/>
             <Button x:Name="GuitarMode" Content="Guitar&#xA;Mode" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Width="76" Height="64" Background="White"/>
         </Grid>
-        <Grid Margin="10" VerticalAlignment="Bottom">
-                <ListBox Margin="10" ItemsSource="{Binding Path=WhiteKeys}" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" ScrollViewer.CanContentScroll="False"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Button x:Name="whiteKey" Height="165" Width="40" Margin="0"
+        <Grid Margin="10" VerticalAlignment="Bottom" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+            <ListBox Margin="10" ItemsSource="{Binding Path=WhiteKeys}" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         ScrollViewer.CanContentScroll="False">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal">
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button x:Name="whiteKey" Style="{StaticResource WhiteKeyStyle}"  Margin="0" VerticalAlignment="Top"
                            HorizontalAlignment="Left" ClickMode="Press" Command="{Binding Path=Play}">
-                                <Button.Background>
-                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                                        <GradientStop Color="#FFDDDDDD" Offset="0.856"/>
-                                        <GradientStop Color="White" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Button.Background>
-                            </Button>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <ListBox ItemsSource="{Binding Path=BlackKeys}" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                                    <GradientStop Color="#FFDDDDDD" Offset="0.856"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox ItemsSource="{Binding Path=BlackKeys}" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -86,8 +97,9 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Button x:Name="blackKey" VerticalAlignment="Top" Height="100" Margin="20,0,0,0"
-                            HorizontalAlignment="Left" Width="30" Command="{Binding Path=Play}">
+                        <Button x:Name="blackKey" VerticalAlignment="Top" Style="{StaticResource BlackKeyStyle}" 
+                                Margin="{Binding DataContext.GetMargin, ElementName=metroWindow}"
+                            HorizontalAlignment="Left" Command="{Binding Path=Play}">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FF272727" Offset="0"/>

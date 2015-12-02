@@ -21,13 +21,6 @@
       <FileName>KeyFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Synthesizer.CORE.KeyLibrary">
-    <Position X="5.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAACAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAABAA=</HashCode>
-      <FileName>KeyLibrary.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Synthesizer.PianoKey" Collapsed="true">
     <Position X="1.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
