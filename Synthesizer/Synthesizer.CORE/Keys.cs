@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Media;
 using System.Threading;
+using System.IO;
 
 namespace Synthesizer
 { 
@@ -24,6 +25,7 @@ namespace Synthesizer
         }
         public void Play()
         {
+            
             if (Sound == null)
                 Beep(_tone, 500);
             else
