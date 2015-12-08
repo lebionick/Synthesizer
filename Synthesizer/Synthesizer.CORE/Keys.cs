@@ -15,17 +15,19 @@ namespace Synthesizer
 
         protected int _tone;
         public SoundPlayer Sound;
+
         public PianoKey(int tone)
         {
             _tone = tone;
         }
         public void AddSound(SoundPlayer sound)
         {
+            
             Sound = sound;
         }
         public void Play()
         {
-            
+
             if (Sound == null)
                 Beep(_tone, 500);
             else

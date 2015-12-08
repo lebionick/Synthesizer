@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Synthesizer.CORE;
 using MahApps.Metro.Controls;
+using Synthesizer.ViewModel;
+using System.Diagnostics;
 
 namespace Synthesizer
 {
@@ -25,20 +27,33 @@ namespace Synthesizer
         public MainWindow()
         {
             InitializeComponent();
-
+            KeyDown += SomeKeyIsPressed;
         }
 
-        private void button6_Click(object sender, RoutedEventArgs e)
+        private void SomeKeyIsPressed(object sender, KeyEventArgs e)
         {
-
+            if ((Mouse.Captured is Button) && ((Mouse.Captured as Button).DataContext != null))
+            {
+                var currentPianoKey = (((Button)Mouse.Captured).DataContext as PianoKeyViewModel);
+                var pressedKey = e.Key;
+                Debug.WriteLine(e.Key.ToString());
+                InputBindings.Add(new KeyBinding(currentPianoKey.Play, new KeyGesture(pressedKey,ModifierKeys.Control)));
+                currentPianoKey.BindedKey = pressedKey.ToString();
+            }
         }
 
-        private void button6_Copy_Click(object sender, RoutedEventArgs e)
+        private void whiteKey_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            PianoKeyViewModel currentKey = (sender as Button).DataContext as PianoKeyViewModel;
+            currentKey.StopSound();
+            Mouse.Capture(null);
         }
-
-
+        private void whiteKey_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.Capture(sender as Button);
+            PianoKeyViewModel currentKey = (sender as Button).DataContext as PianoKeyViewModel;
+            currentKey.PlaySound();
+        }
     }
 
 }

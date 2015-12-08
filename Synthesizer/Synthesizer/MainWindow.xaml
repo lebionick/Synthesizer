@@ -63,11 +63,12 @@
             </Button>
         </Grid>
         <Grid Height="120" Width="200" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button x:Name="PianoMode" Content="Piano&#xA;Mode" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" Width="76" Height="64" Background="White"/>
+            <Button x:Name="PianoMode" Content="Piano&#xA;Mode" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" 
+                 Width="76" Height="64" Background="White"/>
             <Button x:Name="GuitarMode" Content="Guitar&#xA;Mode" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Width="76" Height="64" Background="White"/>
         </Grid>
-        <ScrollViewer ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <Grid Margin="10" VerticalAlignment="Bottom">
+        <ScrollViewer ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="10,150,10,16">
+            <Grid Margin="10,10,10,0" VerticalAlignment="Bottom">
                 <ItemsControl Margin="0" ItemsSource="{Binding WhiteKeys}" HorizontalAlignment="Left" VerticalAlignment="Top"
 					ScrollViewer.CanContentScroll="False">
                     <ItemsControl.ItemsPanel>
@@ -77,8 +78,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button x:Name="whiteKey" Style="{StaticResource WhiteKeyStyle}"  Margin="0" VerticalAlignment="Top"
-								HorizontalAlignment="Left" ClickMode="Press" Command="{Binding Play}" >
+                            <Button x:Name="whiteKey" Style="{StaticResource WhiteKeyStyle}"  Margin="0" VerticalAlignment="Top" Content="{ Binding Path=BindedKey}"
+								HorizontalAlignment="Left" ClickMode="Press" Click="whiteKey_Click" Mouse.PreviewMouseUp="whiteKey_PreviewMouseUp">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
