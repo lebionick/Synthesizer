@@ -1,6 +1,8 @@
-﻿using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,9 @@ using System.Windows.Media;
 
 namespace Synthesizer.ViewModel
 {
-    public class PianoKeyViewModel
+
+
+    public class PianoKeyViewModel:ViewModelBase
     {
         string _bindedKey;
         public string BindedKey
@@ -22,6 +26,7 @@ namespace Synthesizer.ViewModel
             set
             {
                 _bindedKey = value;
+                RaisePropertyChanged("BindedKey");
             }
         }
         private PianoKey _model;
@@ -46,6 +51,8 @@ namespace Synthesizer.ViewModel
             _model = model;
             Player.Open(new Uri(_model.Sound.SoundLocation));
         }
+
+
         private RelayCommand _play;
         public ICommand Play
         {

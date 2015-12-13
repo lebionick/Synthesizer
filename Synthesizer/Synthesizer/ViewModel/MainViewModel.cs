@@ -4,6 +4,7 @@ using Synthesizer.DBO;
 using System.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Synthesizer.ViewModel.HotKeyModel;
 
 
 namespace Synthesizer.ViewModel
@@ -96,6 +97,7 @@ namespace Synthesizer.ViewModel
                 return (WhiteKeyHeight * 0.6);
             }
         }
+
 
         public MainViewModel()
         {

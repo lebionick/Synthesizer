@@ -28,7 +28,9 @@
         <Binding Path="Main" Source="{StaticResource Locator}"/>
     </Controls:MetroWindow.DataContext>
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Margin="10,10,0,0"  Width="236" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible"/>
+        <Grid HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Margin="10,10,0,0"  Width="236" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+
+        </Grid>
         <Grid Height="120" Margin="10,10,10,0" VerticalAlignment="Top" Width="100">
             <Button x:Name="recordButton" VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource recordButtonStyle}">
 
@@ -78,8 +80,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button x:Name="whiteKey" Style="{StaticResource WhiteKeyStyle}"  Margin="0" VerticalAlignment="Top" Content="{ Binding Path=BindedKey}"
-								HorizontalAlignment="Left" ClickMode="Press" Click="whiteKey_Click" Mouse.PreviewMouseUp="whiteKey_PreviewMouseUp">
+                            <Button x:Name="whiteKey" Style="{StaticResource WhiteKeyStyle}" Margin="0" VerticalAlignment="Top"
+								HorizontalAlignment="Left" ClickMode="Press" Click="PianoKey_Click" Mouse.PreviewMouseUp="PianoKey_PreviewMouseUp">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -88,6 +90,7 @@
                                         <GradientStop Color="White" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
+                                <TextBlock Margin="0,50,5,0" Height="20" Text="{Binding BindedKey, UpdateSourceTrigger=PropertyChanged}" />
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -103,7 +106,7 @@
                         <DataTemplate>
                             <Button x:Name="blackKey" VerticalAlignment="Top" Style="{StaticResource BlackKeyStyle}" 
 								Margin="{Binding DataContext.GetMargin, ElementName=metroWindow}"
-								HorizontalAlignment="Left" Command="{Binding Play}">
+								HorizontalAlignment="Left" ClickMode="Press" Click="PianoKey_Click" PreviewMouseLeftButtonUp="PianoKey_PreviewMouseUp">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FF272727" Offset="0"/>
@@ -111,6 +114,7 @@
                                         <GradientStop Color="Black" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
+                                <TextBlock Foreground="Wheat" Margin="0,50,5,0"  Height="20" Text="{Binding BindedKey, UpdateSourceTrigger=PropertyChanged}" />
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
