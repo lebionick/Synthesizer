@@ -33,10 +33,15 @@ namespace Synthesizer.ViewModel
         MediaPlayer Player=new MediaPlayer();
         public void PlaySound()
         {
+
             if (Player != null)
             {
                 Player.Stop();
                 Player.Play();
+            }
+            else
+            {
+                _model.Play();
             }
         }
         public void StopSound()
@@ -49,7 +54,10 @@ namespace Synthesizer.ViewModel
         public PianoKeyViewModel(PianoKey model)
         {
             _model = model;
-            Player.Open(new Uri(_model.Sound.SoundLocation));
+            if (model.Sound != null)
+                Player.Open(new Uri(@_model.Sound));
+            else
+                Player = null;
         }
 
 

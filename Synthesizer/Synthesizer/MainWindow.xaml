@@ -123,7 +123,7 @@
         </ScrollViewer>
         <StatusBar Height="16" VerticalAlignment="Bottom" >
             <TextBlock Text="application's status bar!" FontSize="9" VerticalAlignment="Top"/>
-            <TextBlock FontSize="9" VerticalAlignment="Top"><Run Text="everything is normal"/></TextBlock>
+            <TextBlock FontSize="9" VerticalAlignment="Top" Text="{Binding Path=SoundStatus}"></TextBlock>
         </StatusBar>
        
     </Grid>

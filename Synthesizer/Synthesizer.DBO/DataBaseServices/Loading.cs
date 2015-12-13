@@ -7,32 +7,30 @@ using System.Media;
 using System.Threading;
 using System.IO;
 
+
 namespace Synthesizer.DBO
 {
     interface ILoadSound
     {
-        List<SoundPlayer> Load(int octavas); 
+        List<string> Load(int octavas, ref string status); 
     }
     class LoadPiano : ILoadSound
     {
-        public List<SoundPlayer> Load(int octavas)
+        public List<string> Load(int octavas, ref string status)
         {
-            List<SoundPlayer> _soundList = new List<SoundPlayer>();
-
+            List<string> _soundList = new List<string>();
+            status = "Все звуки успешно загружены";
+            
             for (int i = 0; i < octavas * 12; i++)
             {
-                SoundPlayer player = new SoundPlayer();
                 string path = ("C:\\SoundBanks\\pianotones\\pianotone-" + Convert.ToString(i + 1) + ".wav");
-                try
+                if (File.Exists(@path))
+                    _soundList.Add(path);
+                else
                 {
-                    player.SoundLocation = (@path);
-                    player.LoadAsync();
+                    _soundList.Add(null);
+                    status = "Не все звуки были загружены!";
                 }
-                catch (Exception)
-                {
-                    player = null;
-                }
-                _soundList.Add(player);
             }
             return _soundList;
         }

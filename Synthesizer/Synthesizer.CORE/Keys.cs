@@ -14,24 +14,19 @@ namespace Synthesizer
     {
 
         protected int _tone;
-        public SoundPlayer Sound;
+        public string Sound;
 
         public PianoKey(int tone)
         {
             _tone = tone;
         }
-        public void AddSound(SoundPlayer sound)
-        {
-            
+        public void AddSound(string sound)
+        {   
             Sound = sound;
         }
         public void Play()
         {
-
-            if (Sound == null)
-                Beep(_tone, 500);
-            else
-                Sound.Play();
+                Beep(_tone, 700);
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

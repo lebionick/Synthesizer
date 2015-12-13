@@ -9,7 +9,7 @@ namespace Synthesizer.DBO.DataBaseServices
 {
     public class ConnectingKeys
     {
-        public static SoundPlayer Connect(int number)
+        public static string Connect(int number)
         {
             if ((SoundsDataBase.ListOfSounds != null)&&(SoundsDataBase.ListOfSounds.Count>number))
                 return SoundsDataBase.ListOfSounds[number];

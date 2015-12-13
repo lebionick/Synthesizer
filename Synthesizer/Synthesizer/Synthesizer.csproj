@@ -101,8 +101,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\HotKeyModel\HotKey.cs" />
-    <Compile Include="ViewModel\HotKeyModel\HotKeyWinAPI.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PianoKeyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

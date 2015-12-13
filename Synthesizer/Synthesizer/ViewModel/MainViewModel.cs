@@ -4,8 +4,7 @@ using Synthesizer.DBO;
 using System.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Synthesizer.ViewModel.HotKeyModel;
-
+using System.Diagnostics;
 
 namespace Synthesizer.ViewModel
 {
@@ -13,7 +12,14 @@ namespace Synthesizer.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        SoundsDataBase DataBaseOfSounds;
+        ISoundsDataBase DataBaseOfSounds;
+        public string SoundStatus
+        {
+            get
+            {
+                return DataBaseOfSounds.Status;
+            }
+        }
         public ObservableCollection<PianoKeyViewModel> WhiteKeys
         {
             get
@@ -102,6 +108,7 @@ namespace Synthesizer.ViewModel
         public MainViewModel()
         {
             DataBaseOfSounds = new SoundsDataBase();
+            
         }
     }
 }

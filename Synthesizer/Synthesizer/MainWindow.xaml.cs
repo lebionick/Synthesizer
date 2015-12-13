@@ -16,7 +16,7 @@ using Synthesizer.CORE;
 using MahApps.Metro.Controls;
 using Synthesizer.ViewModel;
 using System.Diagnostics;
-using Synthesizer.ViewModel.HotKeyModel;
+
 
 namespace Synthesizer
 {
@@ -30,11 +30,6 @@ namespace Synthesizer
             InitializeComponent();
             KeyDown += SomeKeyIsPressed;
             KeyUp += SomeKeyIsUp;
-            PreviewKeyDown += (g, h) => {
-                if(!h.IsRepeat)
-                    Debug.WriteLine("sos?");
-                
-            };
         }
 
         private void SomeKeyIsUp(object sender, KeyEventArgs e)

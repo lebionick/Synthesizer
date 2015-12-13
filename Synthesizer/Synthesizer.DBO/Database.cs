@@ -15,22 +15,25 @@ namespace Synthesizer.DBO
         IList<PianoKey> GetListOfWhiteKeys
         {
             get;
-            
         }
         IList<PianoKey> GetListOfBlackKeys
         {
             get;
-            
+        }
+        string Status
+        {
+            get;
         }
     }
     public class SoundsDataBase:ISoundsDataBase
     {
         public static int _octavas = 2;
+        public static string _status = "";
         readonly int[] _blacks = new int[] { 2, 4, 7, 9, 11 };
 
-        public static IList<SoundPlayer> ListOfSounds;
+        public static IList<string> ListOfSounds;
 
-        List<SoundPlayer> _ListOfPianoSounds;
+        List<string> _ListOfPianoSounds;
 
         IList<PianoKey> _ListOfWhiteKeys = new List<PianoKey>();
         IList<PianoKey> _ListOfBlackKeys = new List<PianoKey>();
@@ -42,6 +45,15 @@ namespace Synthesizer.DBO
         {
             get { return _ListOfBlackKeys; }
         }
+
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+        }
+
         void LoadPianoKeys()
         {
             KeyCreator factory;
@@ -82,7 +94,7 @@ namespace Synthesizer.DBO
         public SoundsDataBase()
         {
             ILoadSound loader = new LoadPiano();
-            _ListOfPianoSounds = loader.Load(_octavas);
+            _ListOfPianoSounds = loader.Load(_octavas, ref _status);
             SwitchSound("piano");
 
             LoadPianoKeys();
