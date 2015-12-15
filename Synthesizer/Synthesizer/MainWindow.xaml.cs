@@ -97,6 +97,7 @@ namespace Synthesizer
             PianoKeyViewModel currentKey = (sender as Button).DataContext as PianoKeyViewModel;
             currentKey.PlaySound();
         }
+
     }
 
 }

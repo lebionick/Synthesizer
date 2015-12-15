@@ -12,6 +12,7 @@ namespace Synthesizer.DBO
 {
     public interface ISoundsDataBase
     {
+        void SwitchSound(Modes mode);
         IList<PianoKey> GetListOfWhiteKeys
         {
             get;
@@ -34,6 +35,7 @@ namespace Synthesizer.DBO
         public static IList<string> ListOfSounds;
 
         List<string> _ListOfPianoSounds;
+        List<string> _ListOfGuitarSounds;
 
         IList<PianoKey> _ListOfWhiteKeys = new List<PianoKey>();
         IList<PianoKey> _ListOfBlackKeys = new List<PianoKey>();
@@ -80,9 +82,8 @@ namespace Synthesizer.DBO
                     factory = new BlackKeyCreator();
                     ListOfKeys = _ListOfBlackKeys;
                 }
-
                 ListOfKeys.Add(factory.GetKey(GetToneFromNumber(i)));
-                ListOfKeys[ListOfKeys.Count - 1].AddSound(ConnectingKeys.Connect(i));
+                ConnectingKeys.Connect(i,ListOfKeys[ListOfKeys.Count - 1]);
             }
         }
         int GetToneFromNumber(int number)
@@ -95,18 +96,38 @@ namespace Synthesizer.DBO
         {
             ILoadSound loader = new LoadPiano();
             _ListOfPianoSounds = loader.Load(_octavas, ref _status);
-            SwitchSound("piano");
+            loader = new LoadGuitar();
+            _ListOfGuitarSounds = loader.Load(_octavas, ref _status);
+            SwitchSound(Modes.piano);
 
             LoadPianoKeys();
 
         }
-        public void SwitchSound(string mode) //GOVNOKOD
+        public void SwitchSound(Modes mode)
         {
+            _ListOfWhiteKeys = new List<PianoKey>();
+            _ListOfBlackKeys = new List<PianoKey>();
             switch (mode)
             {
-                case "piano": ListOfSounds = _ListOfPianoSounds; break;
+                case Modes.piano:
+                    {
+                        ListOfSounds = _ListOfPianoSounds;
+                        LoadPianoKeys();
+                        break;
+                    }
+                case Modes.guitar:
+                    {
+                        ListOfSounds = _ListOfGuitarSounds;
+                        LoadPianoKeys();
+                        break;
+                    }
                 default: break;
             }
         }
+    }
+    public enum Modes
+    {
+        guitar,
+        piano
     }
 }

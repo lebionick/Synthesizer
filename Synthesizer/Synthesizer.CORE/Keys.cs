@@ -12,10 +12,9 @@ namespace Synthesizer
 { 
     public abstract class PianoKey
     {
-
+        
         protected int _tone;
         public string Sound;
-
         public PianoKey(int tone)
         {
             _tone = tone;

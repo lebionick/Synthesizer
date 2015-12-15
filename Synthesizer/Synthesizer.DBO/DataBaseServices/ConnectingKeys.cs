@@ -9,11 +9,11 @@ namespace Synthesizer.DBO.DataBaseServices
 {
     public class ConnectingKeys
     {
-        public static string Connect(int number)
+        public static void Connect(int numberOfSoundInBase, PianoKey key)
         {
-            if ((SoundsDataBase.ListOfSounds != null)&&(SoundsDataBase.ListOfSounds.Count>number))
-                return SoundsDataBase.ListOfSounds[number];
-            else return null;
+            if ((SoundsDataBase.ListOfSounds != null)&&(SoundsDataBase.ListOfSounds.Count>numberOfSoundInBase))
+                key.Sound=SoundsDataBase.ListOfSounds[numberOfSoundInBase];
+            else key.Sound=null;
         }
     }
 }

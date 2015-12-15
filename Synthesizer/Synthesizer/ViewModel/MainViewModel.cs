@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 
 namespace Synthesizer.ViewModel
 {
@@ -105,12 +107,43 @@ namespace Synthesizer.ViewModel
                 return (WhiteKeyHeight * 0.6);
             }
         }
-
+        RelayCommand _turnGuitar, _turnPiano;
+        void turnGuitar()
+        {
+            DataBaseOfSounds.SwitchSound(Modes.guitar);
+            _i = -1;
+            RaisePropertyChanged("BlackKeys");
+            RaisePropertyChanged("WhiteKeys");
+        }
+        void turnPiano()
+        {
+            DataBaseOfSounds.SwitchSound(Modes.piano);
+            _i = -1;
+            RaisePropertyChanged("BlackKeys");
+            RaisePropertyChanged("WhiteKeys");
+        }
+        public ICommand SwitchGuitar
+        {
+            get
+            {
+                if (_turnGuitar == null)
+                    _turnGuitar = new RelayCommand(turnGuitar);
+                return _turnGuitar;
+            }
+        }
+        public ICommand SwitchPiano
+        {
+            get
+            {
+                if (_turnPiano == null)
+                    _turnPiano = new RelayCommand(turnPiano);
+                return _turnPiano;
+            }
+        }
 
         public MainViewModel()
         {
             DataBaseOfSounds = new SoundsDataBase();
-
         }
     }
 }

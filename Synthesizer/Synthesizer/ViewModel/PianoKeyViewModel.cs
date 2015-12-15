@@ -34,7 +34,6 @@ namespace Synthesizer.ViewModel
         MediaPlayer Player=new MediaPlayer();
         public void PlaySound()
         {
-
             if (Player != null)
             {
                 Player.Stop();
