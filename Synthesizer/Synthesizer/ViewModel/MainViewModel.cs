@@ -5,6 +5,8 @@ using System.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System;
 
 namespace Synthesizer.ViewModel
 {
@@ -108,7 +110,7 @@ namespace Synthesizer.ViewModel
         public MainViewModel()
         {
             DataBaseOfSounds = new SoundsDataBase();
-            
+
         }
     }
 }

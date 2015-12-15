@@ -23,7 +23,7 @@ namespace Synthesizer.DBO
             
             for (int i = 0; i < octavas * 12; i++)
             {
-                string path = ("C:\\SoundBanks\\pianotones\\pianotone-" + Convert.ToString(i + 1) + ".wav");
+                string path =("..\\..\\..\\SoundBanks\\pianotones\\pianotone-"+Convert.ToString(i + 1)+".wav");
                 if (File.Exists(@path))
                     _soundList.Add(path);
                 else

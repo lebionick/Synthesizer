@@ -84,34 +84,6 @@ namespace Synthesizer
             }
             
         }
-        //List<HotKey> HotKeyList = new List<HotKey>();
-        //private void SomeKeyIsPressed(object sender, KeyEventArgs e)
-        //{
-        //    if ((Mouse.Captured is Button) && ((Mouse.Captured as Button).DataContext != null))
-        //    {
-        //        var currentPianoKey = (((Button)Mouse.Captured).DataContext as PianoKeyViewModel);
-        //        var pressedKey = e.Key;
-        //        Debug.WriteLine(e.Key.ToString());
-        //        InputBindings.Add(new KeyBinding(currentPianoKey.Play, new KeyGesture(pressedKey,ModifierKeys.Control)));
-        //        currentPianoKey.BindedKey = pressedKey.ToString();
-        //        ((Button)Mouse.Captured).Content = pressedKey.ToString();
-        //    }
-        //}
-        //private void SomeKeyIsDown(object sender, KeyEventArgs e)
-        //{
-        //    if((Mouse.Captured is Button)&&((Mouse.Captured as Button).DataContext != null))
-        //    {
-        //        var currentPianoKey = (((Button)Mouse.Captured).DataContext as PianoKeyViewModel);
-        //        var pressedKey = e.Key;
-        //        HotKey hot = new HotKey(ModifierKeys.Control, Key.A, this);
-        //        hot.HotKeyPressed += (ea) => {
-        //            currentPianoKey.PlaySound();
-        //            Debug.WriteLine("blaef");
-        //        };
-
-        //        (Mouse.Captured as Button).Content = pressedKey.ToString();
-        //    }
-        //}
 
         private void PianoKey_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace Synthesizer.ViewModel
         {
             _model = model;
             if (model.Sound != null)
-                Player.Open(new Uri(@_model.Sound));
+                Player.Open(new Uri(Path.GetFullPath(_model.Sound)));
             else
                 Player = null;
         }
