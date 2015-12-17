@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KeyFactory.cs" />
-    <Compile Include="Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordOperations\Record.cs" />
   </ItemGroup>

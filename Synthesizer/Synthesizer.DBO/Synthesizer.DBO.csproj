@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
-    <Compile Include="DataBaseServices\ConnectingKeys.cs" />
-    <Compile Include="DataBaseServices\Loading.cs" />
+    <Compile Include="KeyFactory.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

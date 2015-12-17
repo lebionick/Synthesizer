@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Synthesizer.DBO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

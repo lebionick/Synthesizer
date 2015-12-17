@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Synthesizer.CORE.RecordOperations
+namespace Synthesizer.DBO.RecordOperations
 {
     class Record
     {

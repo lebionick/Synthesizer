@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Synthesizer.CORE;
+using Synthesizer.DBO;
 using MahApps.Metro.Controls;
 using Synthesizer.ViewModel;
 using System.Diagnostics;
@@ -56,8 +56,10 @@ namespace Synthesizer
                         keyBindingDictionary[bindedKey].PlaySound();
                     }
                 }
-                if ((Mouse.Captured is Button) && ((Mouse.Captured as Button).DataContext != null))
+                if ((Mouse.Captured is Button) && ((Mouse.Captured as Button).DataContext != null)&&
+                    ((((Button)Mouse.Captured).Name == "whiteKey")||(((Button)Mouse.Captured).Name == "blackKey")))
                 {
+                    
                     var currentPianoKey = (((Button)Mouse.Captured).DataContext as PianoKeyViewModel);
                     var pressedKey = e.Key;
                     if (!keyBindingDictionary.ContainsKey(pressedKey))

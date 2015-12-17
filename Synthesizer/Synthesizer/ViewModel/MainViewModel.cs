@@ -1,5 +1,4 @@
 using GalaSoft.MvvmLight;
-using Synthesizer.CORE;
 using Synthesizer.DBO;
 using System.Windows;
 using System.Collections.Generic;
@@ -110,17 +109,26 @@ namespace Synthesizer.ViewModel
         RelayCommand _turnGuitar, _turnPiano;
         void turnGuitar()
         {
-            DataBaseOfSounds.SwitchSound(Modes.guitar);
-            _i = -1;
-            RaisePropertyChanged("BlackKeys");
-            RaisePropertyChanged("WhiteKeys");
+            if (DataBaseOfSounds.CurrentMode != Modes.guitar)
+            {
+                DataBaseOfSounds.SwitchSound(Modes.guitar);
+                refreshKeys();
+            }
         }
         void turnPiano()
         {
-            DataBaseOfSounds.SwitchSound(Modes.piano);
+            if (DataBaseOfSounds.CurrentMode != Modes.piano)
+            {
+                DataBaseOfSounds.SwitchSound(Modes.piano);
+                refreshKeys();
+            }
+        }
+
+        void refreshKeys()
+        {
             _i = -1;
-            RaisePropertyChanged("BlackKeys");
             RaisePropertyChanged("WhiteKeys");
+            RaisePropertyChanged("BlackKeys");
         }
         public ICommand SwitchGuitar
         {
@@ -131,6 +139,7 @@ namespace Synthesizer.ViewModel
                 return _turnGuitar;
             }
         }
+
         public ICommand SwitchPiano
         {
             get
