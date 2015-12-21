@@ -8,7 +8,7 @@ using System.IO;
 using System;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
-
+using Synthesizer.CORE.RecordOperations;
 namespace Synthesizer.ViewModel
 {
 
@@ -16,11 +16,34 @@ namespace Synthesizer.ViewModel
     public class MainViewModel : ViewModelBase
     {
         ISoundsDataBase DataBaseOfSounds;
+        RecordIncapsulated Recorder;
         public string SoundStatus
         {
             get
             {
                 return DataBaseOfSounds.Status;
+            }
+        }
+        string _folderForRecord = @"..\\..\\..\\Samples";
+        double _currentWeight = 264500;
+        public void StartRecord()
+        {
+            if(Recorder==null)
+              Recorder = new RecordIncapsulated(_folderForRecord);
+            Recorder.Initialize(GetName);
+            if (startRecord != null)
+                startRecord(this, null);
+        }
+        public void StopRecord()
+        {
+            Recorder.MemoryClear();
+        }
+        public event EventHandler startRecord;
+        public void keyRecordEventHandler(object sender, MetaData ea)
+        {
+            if (Recorder != null)
+            {
+                Recorder.Start(ea.Duration, ea.SoundPath);
             }
         }
         public ObservableCollection<PianoKeyViewModel> WhiteKeys
@@ -30,7 +53,11 @@ namespace Synthesizer.ViewModel
                 List<PianoKeyViewModel> result = new List<PianoKeyViewModel>();
                 foreach (var itemKey in DataBaseOfSounds.GetListOfWhiteKeys)
                 {
-                    result.Add(new PianoKeyViewModel(itemKey));
+                    var wrappedKey = new PianoKeyViewModel(itemKey);
+                    startRecord += wrappedKey.recordingHandler;
+                    wrappedKey.completeTracking += keyRecordEventHandler;
+                    wrappedKey.GetWeightOf1Second = _currentWeight;
+                    result.Add(wrappedKey);
                 }
                 return new ObservableCollection<PianoKeyViewModel>(result);
             }
@@ -42,7 +69,11 @@ namespace Synthesizer.ViewModel
                 List<PianoKeyViewModel> result = new List<PianoKeyViewModel>();
                 foreach (var itemKey in DataBaseOfSounds.GetListOfBlackKeys)
                 {
-                    result.Add(new PianoKeyViewModel(itemKey));
+                    var wrappedKey = new PianoKeyViewModel(itemKey);
+                    startRecord += wrappedKey.recordingHandler;
+                    wrappedKey.completeTracking += keyRecordEventHandler;
+                    wrappedKey.GetWeightOf1Second = _currentWeight;
+                    result.Add(wrappedKey);
                 }
                 return new ObservableCollection<PianoKeyViewModel>(result);
             }
@@ -106,13 +137,18 @@ namespace Synthesizer.ViewModel
                 return (WhiteKeyHeight * 0.6);
             }
         }
+
         RelayCommand _turnGuitar, _turnPiano;
+        RelayCommand _startRecord, _stopRecord;
         void turnGuitar()
         {
             if (DataBaseOfSounds.CurrentMode != Modes.guitar)
             {
                 DataBaseOfSounds.SwitchSound(Modes.guitar);
+                _currentWeight = WaveFormatsGiver.GetWeight(WaveFileFormats.guitarFormat);
                 refreshKeys();
+                if (Recorder != null)
+                Recorder.SetFormat = WaveFormatsGiver.GetFormat(WaveFileFormats.guitarFormat);
             }
         }
         void turnPiano()
@@ -120,7 +156,10 @@ namespace Synthesizer.ViewModel
             if (DataBaseOfSounds.CurrentMode != Modes.piano)
             {
                 DataBaseOfSounds.SwitchSound(Modes.piano);
+                _currentWeight = WaveFormatsGiver.GetWeight(WaveFileFormats.pianoFormat);
                 refreshKeys();
+                if (Recorder != null)
+                    Recorder.SetFormat = WaveFormatsGiver.GetFormat(WaveFileFormats.pianoFormat);
             }
         }
 
@@ -139,7 +178,6 @@ namespace Synthesizer.ViewModel
                 return _turnGuitar;
             }
         }
-
         public ICommand SwitchPiano
         {
             get
@@ -147,6 +185,35 @@ namespace Synthesizer.ViewModel
                 if (_turnPiano == null)
                     _turnPiano = new RelayCommand(turnPiano);
                 return _turnPiano;
+            }
+        }
+
+        public ICommand StartRecordCommand
+        {
+            get
+            {
+                if (_startRecord == null)
+                    _startRecord = new RelayCommand(StartRecord);
+                return _startRecord;
+            }
+        }
+        public ICommand StopCommand
+        {
+            get
+            {
+                if (_stopRecord == null)
+                    _stopRecord = new RelayCommand(StopRecord);
+                return _stopRecord;
+            }
+        }
+
+        int _count = 0;
+        string GetName
+        {
+            get
+            {
+                _count++;
+                return ("audioSample-" + Convert.ToString(_count) + ".wav");
             }
         }
 
