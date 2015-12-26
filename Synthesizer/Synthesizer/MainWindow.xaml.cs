@@ -16,7 +16,9 @@ using Synthesizer.DBO;
 using MahApps.Metro.Controls;
 using Synthesizer.ViewModel;
 using System.Diagnostics;
-
+using Microsoft.Win32;
+using System.IO;
+using System.Speech.Synthesis;
 
 namespace Synthesizer
 {
@@ -100,6 +102,38 @@ namespace Synthesizer
             currentKey.PlaySound();
         }
 
+        private void ChooseFolder(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog MyDialog = new SaveFileDialog();
+           // MyDialog.Filter= "|*.wav";
+            if (MyDialog.ShowDialog() == true)
+            {
+                string folder = MyDialog.FileName;
+                FileInfo info = new FileInfo(folder);
+                folder = info.DirectoryName;
+                (metroWindow.DataContext as MainViewModel).FolderForRecord = folder;
+                return;
+            }
+
+        }
+
+        private void PlayFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog MyDialog = new OpenFileDialog();
+            MyDialog.Filter= "WAV (*.wav)|*.wav|MP3 (*.mp3)|*.mp3";
+
+            if (MyDialog.ShowDialog()==true)
+            {
+                string file = MyDialog.FileName;
+                MediaPlayer player = new MediaPlayer();
+                player.Open(new Uri(file));
+                player.Play();
+            }
+        }
+        void Open_PopUp(object sender, object ea)
+        {
+            popUp.IsOpen = true;
+        }
     }
 
 }

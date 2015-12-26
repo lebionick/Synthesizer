@@ -9,14 +9,19 @@ using System;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 using Synthesizer.CORE.RecordOperations;
+using Synthesizer.CORE;
+using System.Speech.Synthesis;
+
 namespace Synthesizer.ViewModel
 {
 
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        //База звуков
         ISoundsDataBase DataBaseOfSounds;
+        //Класс для записи в wav
         RecordIncapsulated Recorder;
+        //строка состояния загрузки всех звуков
         public string SoundStatus
         {
             get
@@ -24,21 +29,69 @@ namespace Synthesizer.ViewModel
                 return DataBaseOfSounds.Status;
             }
         }
+        //строка состояния записи
+        public string RecordStatus
+        {
+            get
+            {
+                return _recordStatus;
+            }
+            set
+            {
+                _recordStatus = value;
+            }
+        }
+        string _recordStatus = "";
+        //папка для записи(по умолчанию Samples)
         string _folderForRecord = @"..\\..\\..\\Samples";
-        double _currentWeight = 264500;
+        public string FolderForRecord
+        {
+            get
+            {
+                return _folderForRecord;
+            }
+            set
+            {
+                _folderForRecord = value;
+            }
+        }
+        /// <summary>
+        /// Метод начинающий сбор данных с нажмиаемых клавиш
+        /// </summary>
         public void StartRecord()
         {
+            //старт Рекордера
             if(Recorder==null)
               Recorder = new RecordIncapsulated(_folderForRecord);
             Recorder.Initialize(GetName);
             if (startRecord != null)
                 startRecord(this, null);
+
+            _recordStatus = "Recording...";
+            RaisePropertyChanged("RecordStatus");
+            synth.Speak("RECORD");
         }
+        /// <summary>
+        /// Метод останавливаюий сбор данных от клавиш
+        /// </summary>
         public void StopRecord()
         {
+            if (stopRecord != null)
+                stopRecord(this, null);
             Recorder.MemoryClear();
+            _recordStatus = "Stopped";
+            RaisePropertyChanged("RecordStatus");
+            synth.Speak("STOP");
         }
+        //события записи/остановки
         public event EventHandler startRecord;
+        public event EventHandler stopRecord;
+        //немного фана
+        SpeechSynthesizer synth = new SpeechSynthesizer();
+        
+        /// <summary>
+        /// обработчик события совершения трэкинга нажатия клавиш
+        /// </summary>
         public void keyRecordEventHandler(object sender, MetaData ea)
         {
             if (Recorder != null)
@@ -46,6 +99,10 @@ namespace Synthesizer.ViewModel
                 Recorder.Start(ea.Duration, ea.SoundPath);
             }
         }
+        
+        /// <summary>
+        /// коллекция белых клавиш
+        /// </summary>
         public ObservableCollection<PianoKeyViewModel> WhiteKeys
         {
             get
@@ -55,13 +112,16 @@ namespace Synthesizer.ViewModel
                 {
                     var wrappedKey = new PianoKeyViewModel(itemKey);
                     startRecord += wrappedKey.recordingHandler;
+                    stopRecord += wrappedKey.stopHandler;
                     wrappedKey.completeTracking += keyRecordEventHandler;
-                    wrappedKey.GetWeightOf1Second = _currentWeight;
                     result.Add(wrappedKey);
                 }
                 return new ObservableCollection<PianoKeyViewModel>(result);
             }
         }
+        /// <summary>
+        /// Коллекция черных клавиш
+        /// </summary>
         public ObservableCollection<PianoKeyViewModel> BlackKeys
         {
             get
@@ -71,14 +131,15 @@ namespace Synthesizer.ViewModel
                 {
                     var wrappedKey = new PianoKeyViewModel(itemKey);
                     startRecord += wrappedKey.recordingHandler;
+                    stopRecord += wrappedKey.stopHandler;
                     wrappedKey.completeTracking += keyRecordEventHandler;
-                    wrappedKey.GetWeightOf1Second = _currentWeight;
                     result.Add(wrappedKey);
                 }
                 return new ObservableCollection<PianoKeyViewModel>(result);
             }
                 
         }
+        //логика для расстановки черных клавиш с отступом
         int _i = -1;
         int I
         {
@@ -91,6 +152,9 @@ namespace Synthesizer.ViewModel
                 _i = value % 5;
             }
         }
+        /// <summary>
+        /// Возвращает отступ для черных клавиш
+        /// </summary>
         public Thickness GetMargin
         {
             get
@@ -137,7 +201,7 @@ namespace Synthesizer.ViewModel
                 return (WhiteKeyHeight * 0.6);
             }
         }
-
+        //Комманды и методы для переключения звуковых режимов
         RelayCommand _turnGuitar, _turnPiano;
         RelayCommand _startRecord, _stopRecord;
         void turnGuitar()
@@ -145,10 +209,11 @@ namespace Synthesizer.ViewModel
             if (DataBaseOfSounds.CurrentMode != Modes.guitar)
             {
                 DataBaseOfSounds.SwitchSound(Modes.guitar);
-                _currentWeight = WaveFormatsGiver.GetWeight(WaveFileFormats.guitarFormat);
                 refreshKeys();
-                if (Recorder != null)
-                Recorder.SetFormat = WaveFormatsGiver.GetFormat(WaveFileFormats.guitarFormat);
+                if (Recorder == null)
+                    Recorder = new RecordIncapsulated(GetName);
+                Recorder.SetFormat = WaveFormatsGiver.GetFormat(Modes.guitar);
+                synth.Speak("GUITAR");
             }
         }
         void turnPiano()
@@ -156,13 +221,14 @@ namespace Synthesizer.ViewModel
             if (DataBaseOfSounds.CurrentMode != Modes.piano)
             {
                 DataBaseOfSounds.SwitchSound(Modes.piano);
-                _currentWeight = WaveFormatsGiver.GetWeight(WaveFileFormats.pianoFormat);
                 refreshKeys();
-                if (Recorder != null)
-                    Recorder.SetFormat = WaveFormatsGiver.GetFormat(WaveFileFormats.pianoFormat);
+                if (Recorder == null)
+                    Recorder = new RecordIncapsulated(GetName);
+                Recorder.SetFormat = WaveFormatsGiver.GetFormat(Modes.piano);
+                synth.Speak("PIANO");
             }
         }
-
+        //обновляет ViewModel
         void refreshKeys()
         {
             _i = -1;
@@ -208,6 +274,7 @@ namespace Synthesizer.ViewModel
         }
 
         int _count = 0;
+        //автосоздание имен для файлов записи
         string GetName
         {
             get

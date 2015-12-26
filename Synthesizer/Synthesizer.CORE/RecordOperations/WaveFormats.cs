@@ -6,30 +6,36 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 namespace Synthesizer.CORE.RecordOperations
 {
+    /// <summary>
+    ///  Вспомогательный класс
+    ///  для получения форматов и битрейтов Wav
+    /// </summary>
     public static class WaveFormatsGiver
     {
-        public static WaveFormat GetFormat(WaveFileFormats wff)
+        /// <summary>
+        /// Метод возвращающий формат для wav
+        /// в формате WaveFormat библиотеки Naudio
+        /// </summary>
+        public static WaveFormat GetFormat(Modes soundMode)
         {
-            switch (wff)
+            switch (soundMode)
             {
-                case WaveFileFormats.pianoFormat: return new WaveFormat(44100, 24, 2);
-                case WaveFileFormats.guitarFormat: return new WaveFormat(44100, 16, 2);
+                case Modes.piano: return new WaveFormat(44100, 24, 2);
+                case Modes.guitar: return new WaveFormat(44100, 16, 2);
                 default: return new WaveFormat();
             }
         }
-        public static Double GetWeight(WaveFileFormats wff)
+        /// <summary>
+        /// Метод возвращающий вес одной секунды в байтах
+        /// </summary>
+        public static Double GetWeight(Modes soundMode)
         {
-            switch (wff)
+            switch (soundMode)
             {
-                case WaveFileFormats.pianoFormat: return (44100*24*2)/8;
-                case WaveFileFormats.guitarFormat: return (44100*16*2)/8;
+                case Modes.piano: return (44100*24*2)/8;
+                case Modes.guitar: return (44100*16*2)/8;
                 default: return (44100*16*2)/8;
             }
         } 
-    }
-    public enum WaveFileFormats
-    {
-        pianoFormat,
-        guitarFormat
     }
 }

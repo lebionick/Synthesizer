@@ -29,22 +29,30 @@
     </Controls:MetroWindow.DataContext>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Margin="10,10,0,0"  Width="236" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
-            <Button Width="50" Height="50" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="record" Command="{Binding Path=StartRecordCommand}"></Button>
-            <Button Width="50" Height="50" Margin="10,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="stop" Command="{Binding Path=StopCommand}"></Button>
+            <!--<Button Width="50" Height="50" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="record" Command="{Binding Path=StartRecordCommand}"></Button>
+            <Button Width="50" Height="50" Margin="10,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="stop" Command="{Binding Path=StopCommand}"></Button>-->
+            <Button Width="130" Height="30" Margin="10,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Choose Folder For Record" Click="ChooseFolder" FontSize="8"/>
+            <Button Width="130" Height="30" Margin="10,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Play File" Click="PlayFile"/>
+                <TextBlock Width="15" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="Arial Black" MouseEnter="Open_PopUp"
+                          FontSize="16" FontWeight="Bold" Foreground="#FFF3E086">
+                ?
+                </TextBlock>
         </Grid>
         <Grid Height="120" Margin="10,10,10,0" VerticalAlignment="Top" Width="100">
-            <Button x:Name="recordButton" VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource recordButtonStyle}">
+            <Button x:Name="recordButton" VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource recordButtonStyle}" 
+                    Command="{Binding Path=StartRecordCommand}">
 
                 <Button.Template>
                     <ControlTemplate  TargetType="{x:Type Button}">
                         <Grid>
                             <Image  Source="ImageResources/record.jpg"/>
-                            <Ellipse Fill="Transparent" Stroke="Black" />
+                            <Ellipse Fill="Transparent" Stroke="Black"/>
                         </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button x:Name="stopButton" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource recordButtonStyle}">
+            <Button x:Name="stopButton" Margin="20,50,20,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    Style="{StaticResource recordButtonStyle}" Command="{Binding Path=StopCommand}">
                 <Button.Template>
                     <ControlTemplate  TargetType="{x:Type Button}">
                         <Grid>
@@ -54,7 +62,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button x:Name="pauseButton"  Margin="0,0,0,20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource recordButtonStyle}">
+            <!--<Button x:Name="pauseButton"  Margin="0,0,0,20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource recordButtonStyle}">
                 <Button.Template>
                     <ControlTemplate  TargetType="{x:Type Button}">
                         <Grid>
@@ -63,7 +71,7 @@
                         </Grid>
                     </ControlTemplate>
                 </Button.Template>
-            </Button>
+            </Button>-->
         </Grid>
         <Grid Height="120" Width="200" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Button x:Name="PianoMode" Content="Piano&#xA;Mode" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center"  Command="{Binding SwitchPiano}"
@@ -121,11 +129,21 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <Popup Name="popUp" StaysOpen="False" Placement="Mouse" MaxWidth="200"
+               PopupAnimation="Scroll" AllowsTransparency="True">
+                    <Border BorderBrush="LightBlue" BorderThickness="2" Background="White">
+                        <TextBlock Margin="10" TextWrapping="Wrap">
+                    Вы можете использовать для игры нот клавиатуру. Для этого во время нажатия мышью клавиши нажмите соответвующую ей кнопку.
+                            По умолчанию звуки лежат в папке Samples.
+                        </TextBlock>
+                    </Border>
+                </Popup>
             </Grid>
         </ScrollViewer>
         <StatusBar Height="16" VerticalAlignment="Bottom" >
             <TextBlock Text="application's status bar!" FontSize="9" VerticalAlignment="Top"/>
             <TextBlock FontSize="9" VerticalAlignment="Top" Text="{Binding Path=SoundStatus}"></TextBlock>
+            <TextBlock FontSize="9" VerticalAlignment="Top" Text="{Binding Path=RecordStatus}"></TextBlock>
         </StatusBar>
        
     </Grid>

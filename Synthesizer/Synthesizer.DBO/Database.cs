@@ -7,11 +7,20 @@ using System.Media;
 using System.Threading;
 using Synthesizer.DBO;
 using System.IO;
+using Synthesizer.CORE;
+using Synthesizer.CORE.RecordOperations;
 
 namespace Synthesizer.DBO
 {
+    /// <summary>
+    /// Интерфейс работы с SoundsDataBase
+    /// </summary>
     public interface ISoundsDataBase
     {
+        double WeightOf1Sec
+        {
+            get;
+        }
         void SwitchSound(Modes mode);
 
         IList<PianoKey> GetListOfWhiteKeys
@@ -35,12 +44,21 @@ namespace Synthesizer.DBO
             get;
         }
     }
+    /// <summary>
+    /// Создает список клавиш
+    /// и хранит пути звуковых файлов
+    /// </summary>
     public class SoundsDataBase:ISoundsDataBase
     {
+        //количество октав, в текущей версии достпуно
+        //две октвавы, но количество звуков модет быть расширено
         int _octavas = 2;
-        Modes _currentMode;
-        string _status = "Все звуки успешно загружены";
+
+        //вспомогательный массив - черные клавиши по счету:
         readonly int[] _blacks = new int[] { 2, 4, 7, 9, 11 };
+
+        //коллекция звуков по ключу - конкретной клавише
+        //реализует "стратегию"
         Dictionary<PianoKey, string> _ListOfSounds;
         public IDictionary<PianoKey,string> ListOfSounds
         {
@@ -50,11 +68,14 @@ namespace Synthesizer.DBO
             }
         }
 
+        //список всех клавиш
         IList<PianoKey> _ListOfKeys;
 
+        //конкретные словари клавиша-путь к звуку
         Dictionary<PianoKey, string> _ListOfPianoSounds = new Dictionary<PianoKey, string>();
         Dictionary<PianoKey, string> _ListOfGuitarSounds = new Dictionary<PianoKey, string>();
 
+        //списки конкретных клавиш
         public IList<PianoKey> GetListOfWhiteKeys
         {
             get
@@ -78,6 +99,8 @@ namespace Synthesizer.DBO
             }
         }
 
+        //статус загрузки
+        string _status = "Все звуки успешно загружены";
         public string Status
         {
             get
@@ -85,6 +108,9 @@ namespace Synthesizer.DBO
                 return _status;
             }
         }
+
+        //режим звуков
+        Modes _currentMode;
         public Modes CurrentMode
         {
             get
@@ -92,7 +118,16 @@ namespace Synthesizer.DBO
                 return _currentMode;
             }
         }
+        //вес одной секнуды при текущем формате wav
+        public double WeightOf1Sec
+        {
+            get
+            {
+                return WaveFormatsGiver.GetWeight(CurrentMode);
+            }
+        } 
 
+        //заполняет ListOfKeys конкретными клавишами
         void LoadPianoKeys()
         {
             KeyCreator factory;
@@ -120,22 +155,29 @@ namespace Synthesizer.DBO
                 _ListOfKeys.Add(factory.GetKey(this, GetToneFromNumber(i)));
             }
         }
+
+        //при создании клавиш дает им соотвествующие высоты звука
         int GetToneFromNumber(int number)
         {
             double tone = 130.81;
             tone *= Math.Pow(2, ((double)number / (double)12));
             return Convert.ToInt32(tone);
         }
+        /// <summary>
+        /// При создании заполняет список клавиш
+        /// и словари с путями звуков
+        /// </summary>
         public SoundsDataBase()
         {
             LoadPianoKeys();
 
             LoadPiano();
             LoadGuitar();
-
+            //по умолчанию звук пианино
             SwitchSound(Modes.piano);
 
         }
+        //Load методы заполняют соответсвующие словари ключ-путь
         void LoadPiano()
         {
             int i = 0;
@@ -168,6 +210,10 @@ namespace Synthesizer.DBO
                 }
             }
         }
+        /// <summary>
+        /// Переключает звуки
+        /// </summary>
+        /// <param name="mode">режим базы звуков</param>
         public void SwitchSound(Modes mode)
         {
                 switch (mode)
@@ -186,10 +232,5 @@ namespace Synthesizer.DBO
                 }
             _currentMode = mode;
          }
-    }
-    public enum Modes
-    {
-        guitar,
-        piano
     }
 }

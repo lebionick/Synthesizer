@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Synthesizer.CORE.RecordOperations
 {
+    /// <summary>
+    ///  При инициализации
+    ///  начинает отсчет времени
+    /// </summary>
     public class Timer
     {
         DateTime startTime;
@@ -13,6 +17,9 @@ namespace Synthesizer.CORE.RecordOperations
         {
             startTime = DateTime.Now;
         }
+        /// <summary>
+        ///  Возвращает количество милисекунд от времени создания
+        /// </summary>
         public Double GetMiliSeconds
         {
             get

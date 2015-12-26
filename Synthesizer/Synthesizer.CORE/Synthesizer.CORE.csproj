@@ -48,6 +48,7 @@
     <Compile Include="RecordOperations\Record.cs" />
     <Compile Include="RecordOperations\Timer.cs" />
     <Compile Include="RecordOperations\WaveFormats.cs" />
+    <Compile Include="SoundMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
